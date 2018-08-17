@@ -9,6 +9,28 @@ class Game {
     this.loaded = this.assets.loaded;
     this.mouseDown = false;
 
+    this.virus = {
+      level: 0,
+      addons: [{
+        type: 'a',
+        complexity: 1,
+      }],
+    };
+
+    this.antivirus = {
+      level: 0,
+      addons: [{
+
+      }],
+    };
+
+    this.world = {
+      computers: 10,
+      infected: 0,
+      offline: 0,
+    };
+    this.bitcoins = 0;
+
     this.setEventHandlers();
   }
 
