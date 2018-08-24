@@ -1,6 +1,7 @@
 import raf from 'raf';
 import canvas from './canvas';
 import assets from './assets';
+import virus from './virus';
 
 class Game {
   constructor() {
@@ -8,17 +9,12 @@ class Game {
     this.assets = assets;
     this.loaded = this.assets.loaded;
     this.mouseDown = false;
+    this.ready = false;
 
-    this.virus = {
-      level: 0,
-      addons: [{
-        type: 'a',
-        complexity: 1,
-      }],
-    };
+    this.virus = virus;
 
     this.antivirus = {
-      level: 0,
+      strength: 0,
       addons: [{
 
       }],
@@ -35,6 +31,8 @@ class Game {
   }
 
   start() {
+    this.ready = true;
+
     let lastTime = (new Date()).getTime();
 
     const gameLoop = () => {
@@ -55,10 +53,15 @@ class Game {
 
   update() {
     // console.log('update');
+    if (this.ready) {
+      this.virus.calculateStrength();
+    }
   }
 
   render() {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    document.getElementById('virus').innerHTML = this.virus.strength;
 
     this.ctx.fillStyle = '#FFF';
     this.ctx.fillRect(0, 0, canvas.width, canvas.height);
